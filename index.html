@@ -40,16 +40,87 @@
 
 		<div class="reveal">
 			<div class="slides">
+				
+				<!-- Folie 1-->
 				<section>
 					<h1>IPv6</h1>
-					<h3>Eine kleine Einführung in die Welt der langen Adressen</h3>
+					<h3>Eine kleine Einführung in die Welt</h3>
+					<h3>der langen IP-Adressen</h3>
 					<p>
 						<small>Created by <a href="http://om.de">christoph miessler</a> / <a href="http://twitter.com/gantor">@gantor</a></small>
 					</p>
+					<aside class="notes">
+							Nur ein Einstieg in IPv6. Weiter Vorträge werden noch folgen.
+						</aside>
 				</section>
-				
+
+				<!-- Folie 2-->
 				<section>
-					<section>
+					<h3>Warum IPv6</h3>
+					<ul>
+						<li class="fragment">wird von IETF (Internet Engineering Task Force) seit 1995 entwickelt
+						<li class="fragment">hieß ursprünglich IP Next Generation</li>
+						<li class="fragment">Beim Design wurden viele Probleme von IPv4 behoben:</li>
+						<ul>
+							<li class="fragment">z.B ist kein NAT mehr notwendig und im Design auch nicht mehr erwünscht(Ende zu Ende wieder möglich)</li>
+							<li class="fragment">Protokolle wie FTP und SIP sind dadurch einfacher zu benutzen</li>
+						</ul>
+						<li class="fragment">IPv4 Addressknappheit ist derzeit das Hauptargument für die Umstellung.</li>
+						</ul>
+
+						<aside class="notes">
+							<li>*Aufzählung</li>
+							<li>IPv6 hat mehr zu bieten, als nur einen großen Adressraum. Doch zunächst eine kleine Auffrischung bezüglich IPv4.</li>
+						</aside>
+				</section>
+				<!-- Folie 3-->
+				<section>
+					<h4>Ursprüngliche Einteilung des IPv4 Adressraums</h4>
+					<ul>
+						<li>Class A: 8 Bit</li>
+						<li>Class B: 16 Bit</li>
+						<li>Class C: 24 Bit</li>
+					</ul>
+
+					<aside class="notes">
+						<li>8 Bit bei Class A stellt die Länge der Netzmaske dar.</li>
+						<li>Class D: Multicast</li>
+						<li>Class E: reserved(Experimental)</li>
+						<li>Das kleinste Netz ist damit Class C mit 256 Hosts. Für die Verteilung eher schlecht. Daher wurde CIDR eingeführt und die Klassen werden heute nicht mehr benutzt.</li>
+					</aside>
+				</section>
+				<!-- Folie 5-->
+				<section>
+					<h3>CIDR - Classless Inter-Domain Routing</h3>
+					<p>IPv4 Adresse : 168.122.34.3/24</p>
+					<p>168.122.34.3 : 10101000.01111010.00100010.00000011</p>
+					<p>255.255.255.0: 11111111.11111111.11111111.00000000</p>
+					
+				<aside class="notes">
+					<li>Mit CIDR ist auch eine /31 mit 2 Hosts möglich.</li>
+					<li>Der Netzteil wird ähnlich wie bei Postleitzahlen genutzt. Für den Router ist nur der Netzteil der Adresse interessant, weil er danach die Route bestimmt.</li>
+					<li>Die ursprüngliche Idee vom einfach Routing durch Strukturierung des Adressraums hat leider nicht funktioniert und die Routingtabellen bei Provider sind trotzdem riesig und unübersichtlich.</li>
+					<li>Außerdem ist durch die Vergabe von IPv4 Adressen eine große Menge verschwendet worden. Vergabe von /8 an Apple(17.x.x.x), MS, US Mil, etc. Desweiteren sind die Adressen, die auf 0 oder 255 enden auch nicht benutzbar. (Netz/Broadcast)</li>
+				</aside>
+				</section>
+				<!-- Folie 6-->
+				<section>
+					<h3>Adressknappheit bei den RIRs</h3>
+					<p>Das letzte /8 wurde angebrochen. Wer neue IPv4 Adressen haben will, muss auch immer ein IPv6 Netz dazunehmen.
+					<img src="img/ripepool.png" />
+					</p>
+
+				<aside class="notes">
+					(Regional Internet Registry)
+					<li>RIPE (Europe)</li>
+					<li>ARIN (North America)</li>
+					<li>APNIC (Asia - Pacific)</li>
+					<li>LACNIC (Latin America and Caribbean)</li>
+					<li>AfriNIC (African)</li>
+				</aside>
+				</section>
+				<!-- Folie 7-->
+				<section>
 					<h3>IPv4 != IPv6</h3>
 					<p>
 						IPv4: 172.20.1.100/16
@@ -57,26 +128,182 @@
 					<p>
 						IPv6: 2001:6f8:900:90f6:bc69:ec97:29ab:8c34
 					</p>
-					</section>
-					<section>
-						<p>Nicht nur länger sondern ...</p>
-						<ol>
-							<li class="fragment"><code>komplett anderer Header</code></li>
-							<li class="fragment"><em>keine</em> Subnetzmaske mehr</li>
-							<li class="fragment">neue Zuteilungsmöglichkeit über RA</li>
-							<li class="fragment"><strong>keine</strong> Broadcasts mehr</li>
-							<li class="fragment">Clients weisen sich selbst Adressen zu</li>
-							<li class="fragment">neue Minimum MTU</li>
-							<li class="fragment">verschieden Schreibweisen möglich</li>
-						</ol>
-
-					</section>					
+					<aside class="notes">
+						<li>Adressen sind jetzt 128 Bit lang. Damit sind 2 hoch 128 Adressen möglich.</li>
+        				<li>IPv6 bedeutet nicht nur das die Adressen länger werden. Es verändern sich grundlegende Dinge.</li>
+        				<li>Urban Legend: Jedes Atom kann eine IPv6 Adresse haben. > geht nicht, falls man davon aus geht, dass die Erde einen Eisenkern hat. Aber für jedes Sandkorn würde es reichen.</li>
+    				</aside>
 				</section>
+
+				<!-- Folie 8-->
 				<section>
-					<h3>Die verschiedenen IPv6 Adresstypen</h3>
-
+					<h3>IPv6 Header</h3>
+					<img src="img/ipv6_header.png" />
+				<aside class="notes">
+					<li>IPv6 Header (320 Bit) v4:160bit | Version (4 bits) 0110 = 6 | Traffic Class (8bits) = Traffic Art Bestimmung</li>
+					<li>Flow Label (16 Bits) = auf non-zero setzen, um dem Router zu sagen, dass er die Reihenfolge der Paket nicht verändern soll</li>
+					<li>Payload Length (16 bits) = Größe des Payloads mit Extension Header</li>
+					<li>Next Header (8 bits) = Gibt die Art des nächsten Headers an. Wichtig falls Extension Header benutzt werden.</li>
+					<li>Hop Limit (8 bits) = wird um 1 dekrementiert und bei 0 wirft der Router das Paket weg.</li>
+					<li>TTL (8Bit) ist auch raus. TTL wurde pro Sekunde runterzählt und von jedem Router um eins dekrementiert. Dafür gibt es jetzt das Hoplimit</li>
+					<li>Source Address (128 bits) - *Destination Address (128 bits)</li>
+					<p>Zusatzinfos werden nicht mehr im Eigentlichen Header untergebracht, sondern bei Bedarf als Extension Header hinter dem Fixed Header eingefügt. Falls ein Router den Ext. Header nicht versteht, wird das Paket gedroppt und ein Parameter Problem message (ICMPv6 type 4, code 1) zurückgeschickt.
+					</p>
+					<p>
+					Rausgefallen ist die Checksum, weil die jedesmal bei Änderung der TTL vom Router neu erzeugt werden muss und deshalb Performance frist.
+					</p>
+					<p>Fun Fact: Mit IPv6 kann man ein Jumbogram versenden. Payload fast 4GB. (Muss im Transport Layer implementiert sein)</p>
+				</aside>
 				</section>
-
+				<!-- Folie 9-->
+				<section>
+					<h3>Fragmentation</h3>
+					<img src="img/mtupd.png" />
+					<aside class="notes">
+						<p>Im Gegensatz zu IPv4 werden IPv6 Pakete nicht von Routern fragmentieren. Dafür ist der Client zuständig. MTU Path Discovery ist daher Pficht. ICMPv6 blocken bedeutet daher Totalausfall, weil der Client nicht bestimmen kann auf welche Größe er die Paket zuschneiden muss.</p>
+						<p>MTU Ethernet 1500. DSL 1492 (8 BIT PPPOE)</p>
+					</aside>
+				</section>
+				<!-- Folie 10-->
+				<section>
+					<h3>Adressaufbau</h3>
+					<img src="img/ipv6_address.png" />
+				<aside class="notes">
+					<li>Siteprefix wird vom ISP zugeteilt; in der Regel /56; früher gab es /48.</li>
+					<li>Subnet ID dient der Aufteilung der eignen Netze</li>
+					<li>Für die eigentliche Adresse (Interface Identifier) sind immer die letzten 64 Bit reserviert. Diese dürfen nicht für die Struktrierung genutzt werden!</li>
+				</aside>
+				</section>		
+				<!-- Folie 11-->
+				<section>
+					<h3>Adressvergabe auf dem Interface</h3>
+					<h5>1. Link Local</h5>
+						<p>Link Local Range: fe80::/10</p>
+						<p>BSP: fe80::7ed1:c3ff:fe76:59d0%en1</p>
+					<aside class="notes">
+						<li>Mit IPv6 hat ein Interface sofort eine IPv6 Adresse. Auch falls kein Kabel angesteckt ist.</li>
+						<li>vergleichbar mit APIPA-Adressen im Netz 169.254.0.0/16</li>
+						<li>Link Local != Loopback</li>
+						<li>Link Local ist bei IPv6 Pflicht!</li>
+						<li>Link Local gilt nur in Zusammenhang mit einem bestimmten Interface und wird nicht geroutet.</li>
+						<li>fe80::7ed1:c3ff:fe76:59d0%en1 (%en1 ist das Interface)</li>
+						<li>Mit IPv6 ist die Unterstützung für mehrere IP-Adressen pro Interface Plficht!</li>
+					</aside>
+				</section>
+				<!-- Folie 12-->
+				<section>
+					<h3>Adressvergabe auf dem Interface</h3>
+					<h5>2. Site Local</h5>
+						<p>Site Local Range: fec0::/10</p>
+						<p>Seit 2004 decprecated</p>
+					<aside class="notes">
+						<li>Site Local war ursprünglich als privater Adressraum für IPv6 gedacht</li>
+						<li>Die schwammige Definition von Site, hat aber zu Verwirrung geführt, weshalb das Konzept zu Gunsten von ULAs (Unique local adresses) verworfen wurde</li>
+					</aside>
+				</section>
+				<!-- Folie 13-->
+				<section>
+					<h3>Adressvergabe auf dem Interface</h3>
+					<h5>3. Unique Local Address</h5>
+						<p>Unique Local Address Range: fd00::/8</p>
+						<p>BSP: fd9e:21a7:a92c:2323::1</p>
+						<p>Konzept entspricht in etwa den privaten IPv4 Adressen</p>						
+					<aside class="notes">
+						<li>Keine Vergabe durch RIR und Benutzung nur in internen Netzen</li>
+						<li>keine Garantie der globalen Eindeutigkeit</li>
+						<li>keine Reverseauflösung unter ip6.arpa möglich, weil die Adressen nicht im globalen DNS delegiert werden</li>
+						<li>SIXX bietet eine Datenbank in der man ULA registieren kann, um Doppelvergabe zu vermeiden. Wichtig für VPN</li>
+					</aside>
+				</section>
+				<!-- Folie 14-->
+				<section>
+					<h3>Adressvergabe auf dem Interface</h3>
+					<h5>4. Loopback</h5>
+						<p>Loopback: ::1/128</p>						
+					<aside class="notes">
+						<li>Das Gegenstück zu 127.0.0.1</li>						
+					</aside>
+				</section>
+				<!-- Folie 15-->
+				<section>
+					<h3>Adressvergabe auf dem Interface</h3>
+					<h5>5. Multicast</h5>
+						<p>Multicast: ff00::/8</p>
+						<li>ff01::1, ff02::1: - All Nodes</li>
+						<li>ff01::2, ff02::2, ff05::2 - All Routers</li>
+					<aside class="notes">
+						<li>Sendet Packet an eine bestimmte Gruppe von Hosts im Netz</li>						
+					</aside>
+				</section>
+				<!-- Folie 16-->
+				<section>
+					<h3>Adressvergabe auf dem Interface</h3>
+					<h5>6. Global Unicast - Öffentliche Adressen</h5>
+						<p>Global Unicast Range: alles was noch nicht anderweitig reserviert ist</p>
+						<li>0:0:0:0:0:ffff::/96 - IPv4 Mapped Addresses</li>
+						<li>64:ff9b::/96 - NAT64</li>
+						<li>2000::/3  ( 2000… bis 3fff… ) bezeichnet den weltweit routbaren Bereich</li>
+					<aside class="notes">
+						<li>IPv4 Mapped Addresses enthalten in den letzten 32 Bit die IPv4 Adresse und können von einem geeigneten Router konvertiert werden z.b. z.B. ::ff.8.8.8.8</li>
+						<li>NAT64 übersetzt IPv4 in IPv6</li>						
+					</aside>
+				</section>
+				<!-- Folie 17-->
+				<section>
+					<h3>Adressvergabe auf dem Interface</h3>
+					<h5>6.1. Global Unicast - Öffentliche Adressen</h5>
+					<p>2000::/3 unterteilt man in</p>
+					<li>2001::/32 - wird vom Teredo Tunnel benutzt</li>
+					<li>2002::/16 - 6to4 Tunnel</li>
+					<li>2003, 240, 260, 261, 262, 280, 2a0, 2b0 und 2c0 können auch vergeben werden, sind aber noch nicht im großen Umfang verteilt</li>
+					<aside class="notes">
+						<li>Teredo sollte abgeschaltet werden, sobald IPv6 nativ verfügbar ist.</li>
+						<li>6to4 tunnel IPv6 Packet über IPv4</li>
+					<li>In der Regel fangen öffentliche Adressen mit 2001 an</li>
+					</aside>
+				</section>
+				<!-- Folie 18-->
+				<section>
+					<h3>möglicher Ablauf der Autokonfiguration</h3>
+					<ol>
+						<li>Der Client weißt sich selbst eine Link Local Adresse zu (fe80::/10)</li>
+						<li>Client starte Neighbour Discovery (ND) indem ein Anfrage an die Multicast Adresse ff02::2 (all Routers) gesendet wird (Router Solicitation)</li>
+						<li>Die angesprochenen Router senden die möglichen Präfixe als Router Advertisment zurück</li>
+						<li>Der Client hängt an den Präfix seinen Interface Identifier an, den er schon für die Link Local Adresse benutzt hat</li>
+					</ol>
+				</section>
+				<!-- Folie 19-->
+				<section>
+					<h3>möglicher Ablauf der Autokonfiguration</h3>
+					<ol>
+						<li>Der Client weißt sich selbst eine Link Local Adresse zu (fe80::/10)</li>
+						<li>Die Router senden in regelmäßigen abständen Router Advertisments</li>
+						<li>Der Client hängt an den Präfix aus dem RA seinen Interface Identifier an, den er schon für die Link Local Adresse benutzt hat</li>
+					</ol>
+				</section>
+				<!-- Folie 20-->
+				<section>
+					<h3>Privacy</h3>
+					<p>Laut dem ursprünglichen Entwurf der IETF wurde für den Interface Identifier die MAC Adresse des Interfaces benutzt.
+					</p>
+					<p>
+						Die Clients sind dadurch immer identifizierbar, weil sich die MAC Adresse nicht ändert!
+					</p>
+				</section>
+				<!-- Folie 21-->
+				<section>
+					<h3>Privacy Extension</h3>
+					<p>Eine Lösung bieten die sogenanten Privacy Extensions, die vom Betriebsystem implementiert werden müssen. Dabei wird für das Interface immer wieder eine neue temporäre Adresse generiert, die für abgehenden Traffic benutzt wird.
+					</p>
+					BSP:
+					<li>inet6 2001:6f8:900:90f6:7ed1:c3ff:fe76:59d0 prefixlen 64 autoconf</li>
+					<li>inet6 2001:6f8:900:90f6:51b0:858c:d83:f57a prefixlen 64 autoconf temporary</li>
+					<aside class="notes">
+						<li>Eingehend wird immer die normale Adresse benutzt</li>
+						<li>Ausgehend wird die temp Adresse benutzt.</li>
+						<li>Es werden regelmäßig neue temp Adressen generiert. Der Wechsel erfolgt sobald die alte temp Adresse nicht mehr verwendet wird</li>
+						</aside>
+				</section>
 
 				<section>
 					<h1> <a href="http://www.kame.net/">THE TURTLE IS DANCING!</a></h1>
