@@ -1,25 +1,17 @@
 <!doctype html>
 <html lang="en">
-
 	<head>
 		<meta charset="utf-8">
-
 		<title>IPv6</title>
-
 		<meta name="description" content="some infos about ipv6">
 		<meta name="author" content="christoph miessler">
-
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
 		<link rel="stylesheet" href="css/reveal.min.css">
 		<link rel="stylesheet" href="css/theme/night.css" id="theme">
-
 		<!-- For syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
-
 		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
 		<script>
 			if( window.location.search.match( /print-pdf/gi ) ) {
@@ -35,12 +27,9 @@
 		<script src="lib/js/html5shiv.js"></script>
 		<![endif]-->
 	</head>
-
 	<body>
-
 		<div class="reveal">
 			<div class="slides">
-				
 				<!-- Folie 1-->
 				<section>
 					<h1>IPv6</h1>
@@ -67,9 +56,8 @@
 						</ul>
 						<li class="fragment">IPv4 Addressknappheit ist derzeit das Hauptargument für die Umstellung.</li>
 						</ul>
-
 						<aside class="notes">
-							<li>*Aufzählung</li>
+							<li>*Aufzählung*</li>
 							<li>IPv6 hat mehr zu bieten, als nur einen großen Adressraum. Doch zunächst eine kleine Auffrischung bezüglich IPv4.</li>
 						</aside>
 				</section>
@@ -89,7 +77,7 @@
 						<li>Das kleinste Netz ist damit Class C mit 256 Hosts. Für die Verteilung eher schlecht. Daher wurde CIDR eingeführt und die Klassen werden heute nicht mehr benutzt.</li>
 					</aside>
 				</section>
-				<!-- Folie 5-->
+				<!-- Folie 4-->
 				<section>
 					<h3>CIDR - Classless Inter-Domain Routing</h3>
 					<p>IPv4 Adresse : 168.122.34.3/24</p>
@@ -103,7 +91,7 @@
 					<li>Außerdem ist durch die Vergabe von IPv4 Adressen eine große Menge verschwendet worden. Vergabe von /8 an Apple(17.x.x.x), MS, US Mil, etc. Desweiteren sind die Adressen, die auf 0 oder 255 enden auch nicht benutzbar. (Netz/Broadcast)</li>
 				</aside>
 				</section>
-				<!-- Folie 6-->
+				<!-- Folie 5-->
 				<section>
 					<h3>Adressknappheit bei den RIRs</h3>
 					<p>Das letzte /8 wurde angebrochen. Wer neue IPv4 Adressen haben will, muss auch immer ein IPv6 Netz dazunehmen.
@@ -119,7 +107,7 @@
 					<li>AfriNIC (African)</li>
 				</aside>
 				</section>
-				<!-- Folie 7-->
+				<!-- Folie 6-->
 				<section>
 					<h3>IPv4 != IPv6</h3>
 					<p>
@@ -135,7 +123,7 @@
     				</aside>
 				</section>
 
-				<!-- Folie 8-->
+				<!-- Folie 7-->
 				<section>
 					<h3>IPv6 Header</h3>
 					<img src="img/ipv6_header.png" />
@@ -146,14 +134,13 @@
 					<li>Next Header (8 bits) = Gibt die Art des nächsten Headers an. Wichtig falls Extension Header benutzt werden.</li>
 					<li>Hop Limit (8 bits) = wird um 1 dekrementiert und bei 0 wirft der Router das Paket weg.</li>
 					<li>TTL (8Bit) ist auch raus. TTL wurde pro Sekunde runterzählt und von jedem Router um eins dekrementiert. Dafür gibt es jetzt das Hoplimit</li>
-					<li>Source Address (128 bits) - *Destination Address (128 bits)</li>
 					<li>Zusatzinfos werden nicht mehr im Eigentlichen Header untergebracht, sondern bei Bedarf als Extension Header hinter dem Fixed Header eingefügt. Falls ein Router den Ext. Header nicht versteht, wird das Paket gedroppt und ein Parameter Problem message (ICMPv6 type 4, code 1) zurückgeschickt.
 					</li>
 					<li>Rausgefallen ist die Checksum, weil die jedesmal bei Änderung der TTL vom Router neu erzeugt werden muss und deshalb Performance frist.</li>
 					<li>Fun Fact: Mit IPv6 kann man ein Jumbogram versenden. Payload fast 4GB. (Muss im Transport Layer implementiert sein)</li>
 				</aside>
 				</section>
-				<!-- Folie 9-->
+				<!-- Folie 8-->
 				<section>
 					<h3>Fragmentation</h3>
 					<img src="img/mtupd.png" />
@@ -162,7 +149,7 @@
 						<p>MTU Ethernet 1500. DSL 1492 (8 BIT PPPOE)</p>
 					</aside>
 				</section>
-				<!-- Folie 10-->
+				<!-- Folie 9-->
 				<section>
 					<h3>Adressaufbau</h3>
 					<img src="img/ipv6_address.png" />
@@ -172,7 +159,7 @@
 					<li>Für die eigentliche Adresse (Interface Identifier) sind immer die letzten 64 Bit reserviert. Diese dürfen nicht für die Struktrierung genutzt werden!</li>
 				</aside>
 				</section>		
-				<!-- Folie 11-->
+				<!-- Folie 10-->
 				<section>
 					<h3>Adressvergabe</h3>
 					<h5>1. Link Local</h5>
@@ -188,7 +175,7 @@
 						<li>Mit IPv6 ist die Unterstützung für mehrere IP-Adressen pro Interface Plficht!</li>
 					</aside>
 				</section>
-				<!-- Folie 12-->
+				<!-- Folie 11-->
 				<section>
 					<h3>Adressvergabe</h3>
 					<h5>2. Site Local</h5>
@@ -199,7 +186,7 @@
 						<li>Die schwammige Definition von Site, hat aber zu Verwirrung geführt, weshalb das Konzept zu Gunsten von ULAs (Unique local adresses) verworfen wurde</li>
 					</aside>
 				</section>
-				<!-- Folie 13-->
+				<!-- Folie 12-->
 				<section>
 					<h3>Adressvergabe</h3>
 					<h5>3. Unique Local Address</h5>
@@ -213,7 +200,7 @@
 						<li>SIXX bietet eine Datenbank in der man ULA registieren kann, um Doppelvergabe zu vermeiden. Wichtig für VPN</li>
 					</aside>
 				</section>
-				<!-- Folie 14-->
+				<!-- Folie 13-->
 				<section>
 					<h3>Adressvergabe</h3>
 					<h5>4. Loopback</h5>
@@ -222,7 +209,7 @@
 						<li>Das Gegenstück zu 127.0.0.1</li>						
 					</aside>
 				</section>
-				<!-- Folie 15-->
+				<!-- Folie 14-->
 				<section>
 					<h3>Adressvergabe</h3>
 					<h5>5. Multicast</h5>
@@ -233,7 +220,7 @@
 						<li>Sendet Packet an eine bestimmte Gruppe von Hosts im Netz</li>						
 					</aside>
 				</section>
-				<!-- Folie 16-->
+				<!-- Folie 15-->
 				<section>
 					<h3>Adressvergabe</h3>
 					<h5>6. Global Unicast - Öffentliche Adressen</h5>
@@ -248,21 +235,23 @@
 						<li>NAT64 übersetzt IPv4 in IPv6</li>						
 					</aside>
 				</section>
-				<!-- Folie 17-->
+				<!-- Folie 16-->
 				<section>
 					<h3>Adressvergabe</h3>
 					<h5>6.1. Global Unicast - Öffentliche Adressen</h5>
 					<p>2000::/3 unterteilt man in</p>
+					<ul>
 					<li>2001::/32 - wird vom Teredo Tunnel benutzt</li>
 					<li>2002::/16 - 6to4 Tunnel</li>
 					<li>2003, 240, 260, 261, 262, 280, 2a0, 2b0 und 2c0 können auch vergeben werden, sind aber noch nicht im großen Umfang verteilt</li>
+				</ul>
 					<aside class="notes">
 						<li>Teredo sollte abgeschaltet werden, sobald IPv6 nativ verfügbar ist.</li>
 						<li>6to4 tunnel IPv6 Packet über IPv4</li>
 					<li>In der Regel fangen öffentliche Adressen mit 2001 an</li>
 					</aside>
 				</section>
-				<!-- Folie 18-->
+				<!-- Folie 17-->
 				<section>
 					<h3>möglicher Ablauf der Autokonfiguration</h3>
 					<ol>
@@ -272,7 +261,7 @@
 						<li>Der Client hängt an den Präfix seinen Interface Identifier an, den er schon für die Link Local Adresse benutzt hat</li>
 					</ol>
 				</section>
-				<!-- Folie 19-->
+				<!-- Folie 18-->
 				<section>
 					<h3>möglicher Ablauf der Autokonfiguration</h3>
 					<ol>
@@ -281,7 +270,7 @@
 						<li>Der Client hängt an den Präfix aus dem RA seinen Interface Identifier an, den er schon für die Link Local Adresse benutzt hat</li>
 					</ol>
 				</section>
-				<!-- Folie 20-->
+				<!-- Folie 19-->
 				<section>
 					<h3>Privacy</h3>
 					<p>Laut dem ursprünglichen Entwurf der IETF wurde für den Interface Identifier die MAC Adresse des Interfaces benutzt.
@@ -290,7 +279,7 @@
 						Die Clients sind dadurch immer identifizierbar, weil sich die MAC Adresse nicht ändert!
 					</p>
 				</section>
-				<!-- Folie 21-->
+				<!-- Folie 20-->
 				<section>
 					<h3>Privacy Extension</h3>
 					<p>Eine Lösung bieten die sogenanten Privacy Extensions, die vom Betriebsystem implementiert werden müssen. Dabei wird für das Interface immer wieder eine neue temporäre Adresse generiert, die für abgehenden Traffic benutzt wird.
@@ -304,10 +293,14 @@
 						<li>Es werden regelmäßig neue temp Adressen generiert. Der Wechsel erfolgt sobald die alte temp Adresse nicht mehr verwendet wird</li>
 						</aside>
 				</section>
-
+				<!-- Folie 21-->
 				<section>
-					<h1> <a href="http://www.kame.net/">THE TURTLE IS DANCING!</a></h1>
+					<h3>Too be continued…</h3>
 				</section>
+
+				<!-- <section>
+					<h1> <a href="http://www.kame.net/">THE TURTLE IS DANCING!</a></h1>
+				</section> -->
 			</div>
 		</div>
 		<script src="lib/js/head.min.js"></script>
